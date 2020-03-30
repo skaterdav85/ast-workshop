@@ -15,6 +15,15 @@ for (let templatePath of templatePaths) {
   let template = fs.readFileSync(templatePath, 'utf8');
 
   // TODO write your implementation here
+  let root = glimmer.preprocess(template);
+  glimmer.traverse(root, {
+    ElementNode(node) {
+      let { tag } = node;
+
+      let previousCount = tagCounter.get(tag) || 0;
+      tagCounter.set(tag, previousCount + 1);
+    }
+  });
 }
 
 // output the raw results

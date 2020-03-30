@@ -46,6 +46,17 @@ module.exports = function(defaults) {
     transform(root) {
       this.syntax.traverse(root, {
         // TODO write your implementation here
+        ElementNode(node) {
+          node.attributes = node.attributes.filter((node) => {
+            return !node.name.trim().startsWith('data-test-');
+          });
+        }
+
+        // AttrNode(node) {
+        //   if (node.name.startsWith('data-test-')) {
+        //     return null;
+        //   }
+        // }
       });
 
       return root;
